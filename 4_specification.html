@@ -1,0 +1,676 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Specification - Substation Beta format</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Documentation of Substation Beta format.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="expanded "><a href="1_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="expanded "><a href="2_history.html"><strong aria-hidden="true">2.</strong> History</a></li><li class="expanded "><a href="3_motivation.html"><strong aria-hidden="true">3.</strong> Motivation</a></li><li class="expanded "><a href="4_specification.html" class="active"><strong aria-hidden="true">4.</strong> Specification</a></li><li class="expanded "><a href="5_reference_card.html"><strong aria-hidden="true">5.</strong> Reference card</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Substation Beta format</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#specification" id="specification">Specification</a></h1>
+<h1><a class="header" href="#1-features" id="1-features">1. Features</a></h1>
+<ul>
+<li>Human-friendly syntax</li>
+<li>Small text, much effect</li>
+<li>Tiny script information - few and short chunks, just needed stuff</li>
+<li>Scene definition: how to interpret depth and screen resolution</li>
+<li>Styles/Macros: classification of source blocks with beginning style+text</li>
+<li>Flexible timestamps, source block notes and raw text insertion</li>
+<li>Powerful animation, controlled by math expressions</li>
+<li>2.5D</li>
+<li>Much control over positioning and layout</li>
+<li>Many effects: textures, individual transformations, blending modes, masking...</li>
+<li>Fast rendering (=softsubs)</li>
+</ul>
+<h1><a class="header" href="#2-file" id="2-file">2. File</a></h1>
+<h2><a class="header" href="#encoding" id="encoding">Encoding</a></h2>
+<p>SSB files have to be saved in UTF-8.
+We chose UTF-8 because:</p>
+<ul>
+<li>it is the gold standard for text encoding around the globe and most programs assume UTF-8 if nothing is specified</li>
+<li>it does not need BOM at beginning of the file</li>
+<li>no complications in allowing multiple encodings</li>
+</ul>
+<p>Because SSB files are text files, except for horizontal tab (U+9), new line (U+A) and carriage return (U+D) non other characters below U+20 are allowed as content.
+Anyway, carriage return will be ignored. New line alone starts a new line (see newline of text files).</p>
+<h2><a class="header" href="#file-extension" id="file-extension">File Extension</a></h2>
+<p>Obviously, SSB file names end with .SSB.</p>
+<h2><a class="header" href="#matroska-codec-id" id="matroska-codec-id">Matroska Codec ID</a></h2>
+<p>Muxed into a matroska file, they have codec id S_TEXT/SSB.</p>
+<h2><a class="header" href="#structure" id="structure">Structure</a></h2>
+<p>The SSB structure depends on different sections to describe the file creation, source to render and destination frame. Every information chunk is one text line in a SSB file.
+INI and CSV influenced the section structure, BBCode influenced the style tags structure.
+Sections headers are single lines and starting with # (U+23) followed by the section name like:</p>
+<p>#SECTION_NAME</p>
+<p>Invalid sections will be ignored, so nothing happens until a valid section starts.</p>
+<h2><a class="header" href="#info-section" id="info-section">INFO section</a></h2>
+<p>The INFO section holds information about the script itself. Format of information chunks is...</p>
+<p>Type: data</p>
+<p>You can come up with any data yourself but here are some examples:</p>
+<h2><a class="header" href="#title" id="title">Title</a></h2>
+<p>Title of script. For example: </p>
+<p>Title: XXX logo animation.</p>
+<h2><a class="header" href="#author" id="author">Author</a></h2>
+<p>Author of script / script creator. For example:</p>
+<p>Author: Youka</p>
+<h2><a class="header" href="#version" id="version">Version</a></h2>
+<p>Script version. Can contain date, time, phase (alpha, beta, public, private), etc. For example:</p>
+<p>Version: 1.0</p>
+<h2><a class="header" href="#description" id="description">Description</a></h2>
+<p>Additional description of script. Something like the purpose, team or anything else that wasn’t written before. For Example:</p>
+<p>Description: The thing to do the thing</p>
+<h2><a class="header" href="#target-section" id="target-section">TARGET section</a></h2>
+<p>The TARGET section describes the 3 dimensional plane where geometries reside in. 
+Coordinates, 2D or 3D, outside of the target aren’t visible. Format of information chunks is...</p>
+<p>Type: data</p>
+<p>Following types are available:</p>
+<h3><a class="header" href="#width" id="width">Width</a></h3>
+<p>Width of the plane. Coordinates in range 0 until given width are visible. Default value is video width. If an value is defined different than the video width, rendered frame will be scaled to fit. For example:</p>
+<p>Width: 1280</p>
+<h3><a class="header" href="#height" id="height">Height</a></h3>
+<p>Height of the plane. Coordinates in range 0 until given height are visible. Default value is video height. If an value is defined different than the video height, rendered frame will be scaled to fit.  For example:</p>
+<p>Height: 720</p>
+<h3><a class="header" href="#depth" id="depth">Depth</a></h3>
+<p>Depth of the plane. Coordinates in range negative half of given depth until positive half of given depth are visible. Default value is 1000, that means, -500 until +500 are visible depths.  For example:</p>
+<p>Depth: 1000</p>
+<h3><a class="header" href="#view" id="view">View</a></h3>
+<p>Viewer perspective. Can be ‘orthogonal’ or ‘perspective’. Default is ‘perspective’. In case of ‘perspective’, geometries are nearing screen center with increasing negative depth and double size with increasing positive depth. Depth 0 means original size.  For example:</p>
+<p>View: perspective</p>
+<h2><a class="header" href="#macros-section" id="macros-section">MACROS section</a></h2>
+<p>The MACROS section defines styles for use in following source blocks. Macros can be understood as a collection of tags. Format of macros is...</p>
+<p>name: content</p>
+<p>Name can be a chain of characters except (obviously) : (U+3A).</p>
+<p>Content just shouldn’t be empty, that’s all.</p>
+<h2><a class="header" href="#events-section" id="events-section">EVENTS section</a></h2>
+<p>The EVENTS section describes what to render at all. Every source block tells the renderer: “when render what”.
+Format of source blocks is...</p>
+<pre><code>start-end | macro | note | text
+</code></pre>
+<h3><a class="header" href="#start-end" id="start-end">start-end</a></h3>
+<p>Start and end are the times when to start and end rendering.
+Times have one of the following formats...</p>
+<h4><a class="header" href="#time-based" id="time-based">Time Based</a></h4>
+<pre><code>[[[hours:]minutes:]seconds.]milliseconds
+</code></pre>
+<h4><a class="header" href="#event-based" id="event-based">Event Based</a></h4>
+<pre><code>'event-id'
+</code></pre>
+<p>You will be able to pass an array of <strong>event-id</strong>'s to the frame render function of SSB which will allow you to control when lines should be shown from the outside.</p>
+<h3><a class="header" href="#macro" id="macro">macro</a></h3>
+<p>macro is the name of a macro defined in the MACROS section. Content of it will be inserted to the beginning of source block text.</p>
+<h3><a class="header" href="#note" id="note">note</a></h3>
+<p>Note is just an information beside, renderers ignore it.</p>
+<h3><a class="header" href="#text" id="text">text</a></h3>
+<p>Text is a mix of style tags and geometries. Everything what should be rendered is written here.</p>
+<h2><a class="header" href="#resources-section" id="resources-section">RESOURCES section</a></h2>
+<p>The RESOURCES section describes all resources that will be used within the subtitle format. This includes images and fonts.</p>
+<h3><a class="header" href="#texture" id="texture">Texture</a></h3>
+<p>Texture: TEXTURE_ID,data|url,base_64_or_url </p>
+<p>TEXTURE_ID: can be any character but must not contain comma.</p>
+<p>data|url: You need to tell if the data after this is actual data or an url</p>
+<p>base_64_or_url: base64 encoded string or an url as an absolute path to the file on the file system.</p>
+<h3><a class="header" href="#fonts" id="fonts">Fonts</a></h3>
+<p>Font: FONT_FAMILY,style,data|url,base_64_or_url</p>
+<p>FONT_FAMILY: can be any character but must not contain comma.</p>
+<p>style: regular, bold, italic, bold-italic</p>
+<p>data|url: You need to tell if the data after this is actual data or an url</p>
+<p>base_64_or_url: base64 encoded string or a url as an absolute path to the file on the file system.</p>
+<h2><a class="header" href="#comment" id="comment">Comment</a></h2>
+<p>Comments are source blocks which don’t display anything on render target.
+They can contain line information, like time, style, note and text, so they can be used as backups or multiline notes.
+Commented source blocks differ from others by two / (U+2F) before the first cell.</p>
+<pre><code>//0-2:0.0|||Nothing to see.
+</code></pre>
+<h1><a class="header" href="#3-styling" id="3-styling">3. Styling</a></h1>
+<h2><a class="header" href="#general" id="general">General</a></h2>
+<p>Events can have some style properties like color or position. These will be set by style tags which have to be inserted before any given geometry definition e.g. text.
+A style tag effects any geometry definition which comes after the tag. The default style, excluding user styles or style tags, is defined as...</p>
+<pre><code class="language-wrap">[font=Liberation Sans;size=20;bold=n;italic=n;underline=n;strikeout=n;position=0,0,0;direction=ltr;space=0;alignment=2;margin=10;mode=text;border=2;join=round;cap=round;color=FFFFFF;bordercolor=000000;alpha=FF;borderalpha=FF;texture=;texfill=0,0,1,0,clamp;blend=normal;target=mask;mask-mode=normal;blur=0]
+</code></pre>
+<p>On Windows the default Font is Arial.</p>
+<p>Animations and transformations aren’t static properties, so they aren’t listed above.
+Transformations are a special case, because they stack and have to be cleared by reset style tag. Animations interpolate transformations from its non-affecting identity, so an animation of a translation starts with 0/0/0.
+In case of no use of position, direction or any transformation tag, geometry will be wrapped by margin rule to screen edges. Geometry rows nearer the related edge of alignment are wider than rows farther away.
+Setting a new position resets current geometry position. Following text wouldn’t continue it’s position flow from text before.</p>
+<h2><a class="header" href="#escape-characters" id="escape-characters">Escape characters</a></h2>
+<p>Characters [ and ] are identificators for source blocks, so they can’t be used in source cells directly. Add \ before these characters (and \ itself) to escape and use them as content f.e. for texts or notes.
+Other than that \n is supported for line break.</p>
+<h2><a class="header" href="#auto-wrapping" id="auto-wrapping">Auto-Wrapping</a></h2>
+<p>Auto-Wrapping describes the process in which text is broken down into multiple lines of text to not go outside the edge of the screen.</p>
+<p>Text will only be auto-wrapped if no <strong>position</strong> tag is present in the current line.</p>
+<p>The Auto-Wrapper will try to create wrapped lines where the last line has the most text, the second-last the second most text etc. culminating in a pleasing pyramid structure.</p>
+<p>Wrapping is mostly influenced by the tags <strong>margin</strong>, <strong>alignment</strong> and <strong>wrap-style</strong>. It is also influenced by all tags which increase the size of the line or the characters.
+The following describes how each of these tags effects auto-wrapping. Note however that these tags do not <em>only</em> effect auto-wrapping.</p>
+<h3><a class="header" href="#margin" id="margin">margin</a></h3>
+<p><strong>margin</strong> adds a border to the auto-wrapping, effectively making the screen smaller and leading to text being pushed away from the edges.</p>
+<h3><a class="header" href="#alignment" id="alignment">alignment</a></h3>
+<p><strong>alignment</strong> puts the text at certain default positions on the screen, for example <strong>alignment=7</strong> would put the text on the top left corner of the screen and makes the text left-aligned
+while <strong>alignment=2</strong> would put the text on the bottom of the screen in the middle and would effectively center-align the text.</p>
+<h3><a class="header" href="#wrap-style" id="wrap-style">wrap-style</a></h3>
+<p>What each wrap-style does is defined in the <strong>wrap-style</strong> section in the style-tags section.</p>
+<h2><a class="header" href="#style-tags" id="style-tags">Style-Tags</a></h2>
+<h3><a class="header" href="#font" id="font">Font</a></h3>
+<h4><a class="header" href="#font-1" id="font-1">font</a></h4>
+<pre><code>[font=Liberation Sans]
+</code></pre>
+<p>Name of font for text rendering. Defined in the resource section or coming from the operating system.</p>
+<h4><a class="header" href="#size" id="size">size</a></h4>
+<pre><code>[size=20]
+</code></pre>
+<p>In text mode: size of font in pixel.</p>
+<p>In point mode: point range in pixel.</p>
+<p>In shape mode: no effect.</p>
+<h4><a class="header" href="#bold" id="bold">bold</a></h4>
+<pre><code>[bold=n]
+</code></pre>
+<p>Font weight. ‘y’ for bold, ‘n’ for normal.</p>
+<h4><a class="header" href="#italic" id="italic">italic</a></h4>
+<pre><code>[italic=n]
+</code></pre>
+<p>Font style. ‘y’ for setting italic, ‘n’ for normal.</p>
+<h4><a class="header" href="#underline" id="underline">underline</a></h4>
+<pre><code>[underline=n]
+</code></pre>
+<p>Font decoration. ‘y’ for underlining, ‘n’ for normal.</p>
+<h4><a class="header" href="#strikeout" id="strikeout">strikeout</a></h4>
+<pre><code>[strikeout=n]
+</code></pre>
+<p>Font decoration 2. ‘y’ for striking out, ‘n’ for normal.</p>
+<h3><a class="header" href="#position" id="position">Position</a></h3>
+<h4><a class="header" href="#position-1" id="position-1">position</a></h4>
+<pre><code>[position=0,0,0]
+[position=0,0]
+</code></pre>
+<p>Position on screen. 2D or 3D coordinate possible. 0,0 is in the top left corner of the screen.</p>
+<h4><a class="header" href="#alignment-1" id="alignment-1">alignment</a></h4>
+<pre><code>[alignment=7]
+[alignment=0,0]
+</code></pre>
+<p>Alignment of geometry at position point.</p>
+<p>One value: see keyboard numpad for anchor point definition.</p>
+<p>Two values: horizontal and vertical offset from anchor point as geometry width and height in percent.</p>
+<h4><a class="header" href="#margin-1" id="margin-1">margin</a></h4>
+<pre><code>[margin=10]
+[margin=10,10,10,10]
+[margin-top=10]
+[margin-right=10]
+[margin-bottom=10]
+[margin-left=10]
+</code></pre>
+<p>Margin to screen edges in pixel. Only affects line if no position is set.</p>
+<h3><a class="header" href="#wrap-style-1" id="wrap-style-1">wrap-style</a></h3>
+<pre><code>[wrap-style=space]
+</code></pre>
+<p>Only has any effect if auto-wrapping is enabled.</p>
+<p>Will wrap text according to the specified style. Can be either <strong>nowrap</strong>, <strong>space</strong> or <strong>character</strong>;</p>
+<p>With <strong>space</strong> the auto-wrapper will try to break lines at the &quot; &quot; character.</p>
+<p>With <strong>character</strong> the auto-wrapper will try to break lines at characters.</p>
+<p>With <strong>hyphen</strong> the auto-wrapper will try to intelligently use a dictionary to add hyphens to words in addition to breaking on spaces.</p>
+<h4><a class="header" href="#direction" id="direction">direction</a></h4>
+<pre><code>[direction=ltr]
+</code></pre>
+<p>Draws text in different directions, usually depends on the writing system (think english vs. japanese vs. hebrew). Default is LTR.</p>
+<p>Can be: ltr, rtl, ttb, btt</p>
+<p>ltr = left-to-right</p>
+<p>rtl = right-to-left</p>
+<p>ttb = top-to-down</p>
+<p>btt = bottom-to-top</p>
+<h4><a class="header" href="#space" id="space">space</a></h4>
+<pre><code>[space=0]
+[space=0,0]
+[space-h=0]
+[space-v=0]
+</code></pre>
+<p>Space between geometries. For text, horizontal space between characters and vertical space between lines are defined too.</p>
+<h3><a class="header" href="#transformation" id="transformation">Transformation</a></h3>
+<h4><a class="header" href="#rotate" id="rotate">rotate</a></h4>
+<pre><code>[rotate-x=0]
+[rotate-y=0]
+[rotate-z=0]
+</code></pre>
+<p>Geometry rotation on plane axis in degree.</p>
+<h4><a class="header" href="#scale" id="scale">scale</a></h4>
+<pre><code>[scale=1,1,1]
+[scale-x=1]
+[scale-y=1]
+[scale-z=1]
+</code></pre>
+<p>Geometry scale on plane axis in percent. (1 = 100%)</p>
+<h4><a class="header" href="#translate" id="translate">translate</a></h4>
+<pre><code>[translate=0,0,0]
+[translate-x=0]
+[translate-y=0]
+[translate-z=0]
+</code></pre>
+<p>Geometry translation on plane in pixel.</p>
+<h4><a class="header" href="#shear" id="shear">shear</a></h4>
+<pre><code>[shear=0,0]
+[shear-x=0]
+[shear-y=0]
+</code></pre>
+<p>Geometry shearing on plane as weight.</p>
+<h4><a class="header" href="#matrix" id="matrix">matrix</a></h4>
+<pre><code>[matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+</code></pre>
+<p>You can also directly manipulate the matrix yourself, but beware that setting this may reset/overwrite translate, scale, rotate and shear. </p>
+<h4><a class="header" href="#reset" id="reset">reset</a></h4>
+<pre><code>[reset]
+</code></pre>
+<p>Resets transformations in source block or in other words, resets the matrix.</p>
+<h3><a class="header" href="#geometry" id="geometry">Geometry</a></h3>
+<h4><a class="header" href="#mode" id="mode">mode</a></h4>
+<p>Geometry type to draw. Every character in a line that is not within squared brackets will be interpreted and rendered as geometry according to this mode.</p>
+<pre><code>[mode=text]
+</code></pre>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<pre><code>[mode=shape]
+</code></pre>
+<p>Can be one of the  following:</p>
+<pre><code>m - move (m 0 0)
+
+l - line (l 0 0 1 1)
+
+a - arcs (a 0 0 360)
+
+b - cubic bezier (b 0 0 1 1 2 2 3 3)
+</code></pre>
+<p>Example of a circle: </p>
+<pre><code class="language-html">m 0 -10 b 0 -10 -10 -10 -10 0 b -10 0 -10 10 0 10 b 0 10 10 10 10 0 b 10 0 10 -10 0 -10
+</code></pre>
+<p><img src="assets/img/circle.png" alt="circle shape" /></p>
+<p>Example of a heart shape: </p>
+<pre><code class="language-html">m -17 4 b -17 -4 -14 -9 -10 -9 b -4 -9 0 -2 0 -2 b 0 -2 4 -9 10 -9 b 14 -9 17 -4 17 4 b 17 13 0 22 0 22 b 0 22 -17 14 -17 4
+</code></pre>
+<p><img src="assets/img/heart.png" alt="heart shape" /></p>
+<pre><code>[mode=points]
+</code></pre>
+<p>0 0</p>
+<p>TODO: Better example, add picture</p>
+<h4><a class="header" href="#border" id="border">border</a></h4>
+<pre><code>[border=2]
+[border=2,2]
+[border-h=2]
+[border-v=2]
+</code></pre>
+<p>Border width of geometry.</p>
+<h4><a class="header" href="#join" id="join">join</a></h4>
+<pre><code>[join=round]
+</code></pre>
+<p>Border and line join style. Can be ‘round’, ‘bevel’ or ‘miter’.</p>
+<h4><a class="header" href="#cap" id="cap">cap</a></h4>
+<pre><code>[cap=round]
+</code></pre>
+<p>Border and line cap style. Can be ‘round’, 'butt' or ‘square’.</p>
+<h3><a class="header" href="#textures" id="textures">Textures</a></h3>
+<h4><a class="header" href="#texture-1" id="texture-1">texture</a></h4>
+<pre><code>[texture=RESOURCE_ID]
+</code></pre>
+<p>Texture on geometry. Texturing enabled by a valid RESOURCE_ID referencing an image. Disabled by an invalid value (like an empty value).</p>
+<p>Can be set to <strong>@</strong> to use the current frame of the video as a texture.</p>
+<h4><a class="header" href="#texfill" id="texfill">texfill</a></h4>
+<pre><code>[texfill=0,0,1,0]
+[texfill=0,0,1,0,pad]
+</code></pre>
+<p>Texture position, size and wrapping.</p>
+<p>Offset: The first two numbers describe where the texture starts on the geometry (as a value between 0 - 1 (0-100%)).</p>
+<p>Range: The two numbers after that describe how far the texture stretches in respect to the geometry (as a value between 0 -1 (0-100%)).</p>
+<p>Wrapping modes: <strong>pad</strong>, <strong>clamp</strong>, <strong>repeat</strong>, <strong>mirror</strong>. <strong>pad</strong> is default.</p>
+<p>Wrapping modes describe what happens outside of the texture on the geometries (beyond the edges of the texture).</p>
+<p><strong>pad</strong> means everywhere there is no texture you will have the standard filling color of the geometry.</p>
+<p><strong>clamp</strong> means that the last pixel of the texture is repeated in the direction of the edge.</p>
+<p><strong>repeat</strong> means that the texture is repeated in the direction of the edge.</p>
+<p><strong>mirror</strong> means that the texture is repeated but flipped on the respective edge in the direction on the edge.</p>
+<h3><a class="header" href="#color" id="color">Color</a></h3>
+<h4><a class="header" href="#color-1" id="color-1">color</a></h4>
+<pre><code>[color=FFFFFF]
+[color=FFFFFF,FFFFFF]
+[color=FFFFFF,FFFFFF,FFFFFF]
+[color=FFFFFF,FFFFFF,FFFFFF,FFFFFF]
+[color=FFFFFF,FFFFFF,FFFFFF,FFFFFF,FFFFFF]
+[bordercolor=000000]
+[bordercolor=000000,000000]
+[bordercolor=000000,000000,000000]
+[bordercolor=000000,000000,000000,000000]
+[bordercolor=000000,000000,000000,000000,000000]
+</code></pre>
+<p>Color for geometry or his border. Can be mono, left-to-right gradient, left-to-mid-to-right gradient, 4-corners gradient or 4-corners + center gradient. Color definition in hexadecimal (RGB).</p>
+<h4><a class="header" href="#alpha" id="alpha">alpha</a></h4>
+<pre><code>[alpha=FF]
+[alpha=FF,FF]
+[alpha=FF,FF,FF,FF]
+[alpha=FF,FF,FF,FF,FF]
+[borderalpha=FF]
+[borderalpha=FF,FF]
+[borderalpha=FF,FF,FF,FF]
+[borderalpha=FF,FF,FF,FF,FF]
+</code></pre>
+<p>Transparency for geometry or his border. Can be mono, left-to-right gradient, left-to-mid-to-right gradient, 4-corners gradient or 4-corners + center gradient. Value in hexadecimal (00 = invisible, FF = opaque).</p>
+<h3><a class="header" href="#rastering" id="rastering">Rastering</a></h3>
+<h4><a class="header" href="#blur" id="blur">blur</a></h4>
+<pre><code>[blur=0]
+[blur=0,0]
+[blur-h=0]
+[blur-v=0]
+</code></pre>
+<p>Gaussian blur on geometry + border. Sigma value defines strength. Horizontal and vertical blur available.</p>
+<h4><a class="header" href="#mask" id="mask">mask</a></h4>
+<pre><code>[target=mask]
+[target=frame]
+[mask-mode=normal]
+[mask-mode=invert]
+[mask-clear]
+</code></pre>
+<p>With this you can use one geometry to mask another, making clipping and holes inside texts etc. possible.</p>
+<p>If you set target to <strong>mask</strong> then you will start to render on a different canvas which you are unable to see.
+On this canvas (back buffer) only alpha values exist for each pixel (0-255) so no colors. If you draw any shape on this hidden canvas
+with an alpha value of 255, each pixel of said shape will be &quot;masked out&quot; on the original canvas, meaning you will
+stance a hole into any shape at said position. If you use 127 alpha instead, the &quot;hole&quot; will be 50% transparent etc.</p>
+<p>You can invert this logic by setting <strong>mask-mode</strong> to <strong>invert</strong>.
+Beware that if you do this, nothing will show on screen as the hidden canvas will be all 0 per default and by
+inverting the logic everything is masked out.</p>
+<p>With using <strong>mask-clear</strong> you can reset the entire canvas to 0.</p>
+<p>Example:</p>
+<pre><code>[target=mask;mask-mode=invert;alpha=FF;blur=5;]CIRCLE_SMALL[target=frame;blur=0;]CIRCLE
+</code></pre>
+<h4><a class="header" href="#blend" id="blend">blend</a></h4>
+<pre><code>[blend=overlay]
+</code></pre>
+<p>Blending mode. This will set how this geometry is blended with the background.</p>
+<p>Following modes are available:</p>
+<p>overlay: (source alpha * source color) + ((1 -  source alpha) * destination color)</p>
+<p>add: source color + destination color</p>
+<p>subtract: source color - destination color</p>
+<p>multiply: source color * destination color</p>
+<p>invert: ~destination color</p>
+<p>difference: abs(source color - destination color)</p>
+<p>screen: 1 - (1 - source color) * (1 - destination color)</p>
+<h3><a class="header" href="#animation" id="animation">Animation</a></h3>
+<h4><a class="header" href="#animate" id="animate">animate</a></h4>
+<pre><code>animate=[color=000000;translate-x=20]
+animate=t,[color=000000;translate-x=20]
+animate=0,1000,[color=000000;translate-x=20]
+animate=500,1000,[color=000000;translate-x=-20]
+animate=0,1000,sin(t*pi),[color=000000;translate-x=20]
+</code></pre>
+<p>Interpolates style properties over time.</p>
+<p>First version goes over whole source block time to interpolate style tags.</p>
+<p>Second version additionally sends interpolation factor of current frame through an equation.</p>
+<p>Third version specifies a time range to interpolate style tags.</p>
+<p>Fourth version combines all versions. A description for his values:</p>
+<p>First value:</p>
+<p>Start time in milliseconds.</p>
+<p>Positive number for offset to start time of source block.</p>
+<p>Negativ number for offset to end time of source block.</p>
+<p>Second value:</p>
+<p>End time in milliseconds.</p>
+<p>Positive number for offset to start time of source block.</p>
+<p>Negativ number for offset to end time of source block.</p>
+<p>Third value:</p>
+<p>Equation for interpolation factor.</p>
+<p>Fourth value:</p>
+<p>Style tags to interpolate.</p>
+<h3><a class="header" href="#karaoke" id="karaoke">Karaoke</a></h3>
+<p>The standard karaoke effect will be an interpolation from &quot;color&quot; to &quot;kcolor&quot; in the given k duration.</p>
+<h4><a class="header" href="#k" id="k">k</a></h4>
+<pre><code>[k=100]
+</code></pre>
+<p>Karaoke duration in milliseconds.</p>
+<h4><a class="header" href="#kset" id="kset">kset</a></h4>
+<pre><code>[kset=0]
+</code></pre>
+<p>Reset karaoke time in milliseconds to start time of event.</p>
+<h4><a class="header" href="#kcolor" id="kcolor">kcolor</a></h4>
+<pre><code>[kcolor=FF00FF]
+</code></pre>
+<p>This will create something akin to the following animation tag for each syllable:</p>
+<pre><code>[animate=kStart,kEnd,t^0.5,[color=FF00FF]]
+</code></pre>
+<p>Color to which the karaoke will interpolate within the given duration of the karaoke timing. For color syntax see the color tag.</p>
+<h1><a class="header" href="#6-examples" id="6-examples">6. Examples</a></h1>
+<h2><a class="header" href="#minimal" id="minimal">Minimal</a></h2>
+<p>This is an absolute minimal example.
+Only the EVENTS section is needed for an output.</p>
+<pre><code>#EVENTS
+|1.0-5:0.0|||Boring line.|
+</code></pre>
+<h2><a class="header" href="#extended" id="extended">Extended</a></h2>
+<p>This is an extended example which shows a lot of SSB properties.
+Script informations, destination values or styles are very useful if a script have to be shared with others or edited in future again.</p>
+<pre><code class="language-ssb">#INFO
+Title: My new project
+Author: Youka
+Version: 16.06.2012
+Description: First concept of a new render format.
+
+#TARGET
+Width: 1280
+Height: 720
+Depth: 1000
+View: perspective
+
+#MACROS
+Default: [bold=y]
+Mine: [bold=n;color=FF0000]
+Another: [Mine;position=100,200,-1;rotate-z=180]I'm a
+
+#EVENTS
+//0-2.0|||This line is a comment over 2 seconds!
+2.0-5:0.0|Another|Hello, i'm a note!|red,    rotated\ntext over multiple lines.
+5:0.0-2:5:0.0|Mine|Draw sth.|[mode=shape;texture=RAMEN]m 0 0 l 50.5 0 50.5 20.125 0 20.125
+10:0.0-10:50:0.0||${Another}Lets scale some text to double its size!|[animate=500, 1000, [scale=2]]This text is getting huge
+20.0.0-21.0.0|||[font=MaterialIcon]some_circle_ligature
+'show-something'|Default||This will only be shown when the event id is given
+
+#RESOURCES
+Texture: RAMEN,url,../ramen.tga
+// Will we support ligaturs? Pretty important for icon fonts
+Font: MaterialIcon,regular,data,AAEAAAAKAIAAAwAgT1MvMnwMf9s...
+</code></pre>
+<h1><a class="header" href="#7-credits" id="7-credits">7. Credits</a></h1>
+<p>References:</p>
+<ul>
+<li><a href="http://docs.aegisub.org/3.2/Main_Page/">ASS specification</a></li>
+<li><a href="https://code.google.com/archive/p/vsfiltermod/wikis/NewTags.wiki">VSFilterMod - NewTags</a></li>
+<li><a href="https://www.w3.org/TR/SVG/paths.html">SVG Paths</a></li>
+</ul>
+<p>Thanks to...</p>
+<ul>
+<li>Youka</li>
+<li>McWhite</li>
+<li>OutlawJones</li>
+</ul>
+<h1><a class="header" href="#8-license" id="8-license">8. License</a></h1>
+<p>This specification is licensed under a Creative Commons Attribution-NoDerivs 3.0 license.
+You can share it in commercial or non-commercial way, but have to mention the author, keep it uncut and don’t change content.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="3_motivation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="5_reference_card.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="3_motivation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="5_reference_card.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="/assets/customjs/assets/customjs/ssb.highlight.js"></script>
+        
+
+        
+
+    </body>
+</html>
