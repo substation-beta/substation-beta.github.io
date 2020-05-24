@@ -255,7 +255,7 @@ Coordinates, 2D or 3D, outside of the target aren’t visible. Format of informa
 <h2><a class="header" href="#events-section" id="events-section">EVENTS section</a></h2>
 <p>The EVENTS section describes what to render at all. Every source block tells the renderer: “when render what”.
 Format of source blocks is...</p>
-<pre><code>start-end | macro | note | text
+<pre><code class="language-ssb-events-section">start-end | macro | note | text
 </code></pre>
 <h3><a class="header" href="#start-end" id="start-end">start-end</a></h3>
 <p>Start and end are the times when to start and end rendering.
@@ -290,7 +290,7 @@ Times have one of the following formats...</p>
 <p>Comments are source blocks which don’t display anything on render target.
 They can contain line information, like time, style, note and text, so they can be used as backups or multiline notes.
 Commented source blocks differ from others by two / (U+2F) before the first cell.</p>
-<pre><code>//0-2:0.0|||Nothing to see.
+<pre><code class="language-ssb-events-section">//0-2:0.0|||Nothing to see.
 </code></pre>
 <h1><a class="header" href="#3-styling" id="3-styling">3. Styling</a></h1>
 <h2><a class="header" href="#general" id="general">General</a></h2>
@@ -322,46 +322,46 @@ while <strong>alignment=2</strong> would put the text on the bottom of the scree
 <h2><a class="header" href="#style-tags" id="style-tags">Style-Tags</a></h2>
 <h3><a class="header" href="#font" id="font">Font</a></h3>
 <h4><a class="header" href="#font-1" id="font-1">font</a></h4>
-<pre><code>[font=Liberation Sans]
+<pre><code class="language-ssb-event">[font=Liberation Sans]
 </code></pre>
 <p>Name of font for text rendering. Defined in the resource section or coming from the operating system.</p>
 <h4><a class="header" href="#size" id="size">size</a></h4>
-<pre><code>[size=20]
+<pre><code class="language-ssb-event">[size=20]
 </code></pre>
 <p>In text mode: size of font in pixel.</p>
 <p>In point mode: point range in pixel.</p>
 <p>In shape mode: no effect.</p>
 <h4><a class="header" href="#bold" id="bold">bold</a></h4>
-<pre><code>[bold=n]
+<pre><code class="language-ssb-event">[bold=n]
 </code></pre>
 <p>Font weight. ‘y’ for bold, ‘n’ for normal.</p>
 <h4><a class="header" href="#italic" id="italic">italic</a></h4>
-<pre><code>[italic=n]
+<pre><code class="language-ssb-event">[italic=n]
 </code></pre>
 <p>Font style. ‘y’ for setting italic, ‘n’ for normal.</p>
 <h4><a class="header" href="#underline" id="underline">underline</a></h4>
-<pre><code>[underline=n]
+<pre><code class="language-ssb-event">[underline=n]
 </code></pre>
 <p>Font decoration. ‘y’ for underlining, ‘n’ for normal.</p>
 <h4><a class="header" href="#strikeout" id="strikeout">strikeout</a></h4>
-<pre><code>[strikeout=n]
+<pre><code class="language-ssb-event">[strikeout=n]
 </code></pre>
 <p>Font decoration 2. ‘y’ for striking out, ‘n’ for normal.</p>
 <h3><a class="header" href="#position" id="position">Position</a></h3>
 <h4><a class="header" href="#position-1" id="position-1">position</a></h4>
-<pre><code>[position=0,0,0]
+<pre><code class="language-ssb-event">[position=0,0,0]
 [position=0,0]
 </code></pre>
 <p>Position on screen. 2D or 3D coordinate possible. 0,0 is in the top left corner of the screen.</p>
 <h4><a class="header" href="#alignment-1" id="alignment-1">alignment</a></h4>
-<pre><code>[alignment=7]
+<pre><code class="language-ssb-event">[alignment=7]
 [alignment=0,0]
 </code></pre>
 <p>Alignment of geometry at position point.</p>
 <p>One value: see keyboard numpad for anchor point definition.</p>
 <p>Two values: horizontal and vertical offset from anchor point as geometry width and height in percent.</p>
 <h4><a class="header" href="#margin-1" id="margin-1">margin</a></h4>
-<pre><code>[margin=10]
+<pre><code class="language-ssb-event">[margin=10]
 [margin=10,10,10,10]
 [margin-top=10]
 [margin-right=10]
@@ -370,7 +370,7 @@ while <strong>alignment=2</strong> would put the text on the bottom of the scree
 </code></pre>
 <p>Margin to screen edges in pixel. Only affects line if no position is set.</p>
 <h3><a class="header" href="#wrap-style-1" id="wrap-style-1">wrap-style</a></h3>
-<pre><code>[wrap-style=space]
+<pre><code class="language-ssb-event">[wrap-style=space]
 </code></pre>
 <p>Only has any effect if auto-wrapping is enabled.</p>
 <p>Will wrap text according to the specified style. Can be either <strong>nowrap</strong>, <strong>space</strong> or <strong>character</strong>;</p>
@@ -378,7 +378,7 @@ while <strong>alignment=2</strong> would put the text on the bottom of the scree
 <p>With <strong>character</strong> the auto-wrapper will try to break lines at characters.</p>
 <p>With <strong>hyphen</strong> the auto-wrapper will try to intelligently use a dictionary to add hyphens to words in addition to breaking on spaces.</p>
 <h4><a class="header" href="#direction" id="direction">direction</a></h4>
-<pre><code>[direction=ltr]
+<pre><code class="language-ssb-event">[direction=ltr]
 </code></pre>
 <p>Draws text in different directions, usually depends on the writing system (think english vs. japanese vs. hebrew). Default is LTR.</p>
 <p>Can be: ltr, rtl, ttb, btt</p>
@@ -387,7 +387,7 @@ while <strong>alignment=2</strong> would put the text on the bottom of the scree
 <p>ttb = top-to-down</p>
 <p>btt = bottom-to-top</p>
 <h4><a class="header" href="#space" id="space">space</a></h4>
-<pre><code>[space=0]
+<pre><code class="language-ssb-event">[space=0]
 [space=0,0]
 [space-h=0]
 [space-v=0]
@@ -395,46 +395,46 @@ while <strong>alignment=2</strong> would put the text on the bottom of the scree
 <p>Space between geometries. For text, horizontal space between characters and vertical space between lines are defined too.</p>
 <h3><a class="header" href="#transformation" id="transformation">Transformation</a></h3>
 <h4><a class="header" href="#rotate" id="rotate">rotate</a></h4>
-<pre><code>[rotate-x=0]
+<pre><code class="language-ssb-event">[rotate-x=0]
 [rotate-y=0]
 [rotate-z=0]
 </code></pre>
 <p>Geometry rotation on plane axis in degree.</p>
 <h4><a class="header" href="#scale" id="scale">scale</a></h4>
-<pre><code>[scale=1,1,1]
+<pre><code class="language-ssb-event">[scale=1,1,1]
 [scale-x=1]
 [scale-y=1]
 [scale-z=1]
 </code></pre>
 <p>Geometry scale on plane axis in percent. (1 = 100%)</p>
 <h4><a class="header" href="#translate" id="translate">translate</a></h4>
-<pre><code>[translate=0,0,0]
+<pre><code class="language-ssb-event">[translate=0,0,0]
 [translate-x=0]
 [translate-y=0]
 [translate-z=0]
 </code></pre>
 <p>Geometry translation on plane in pixel.</p>
 <h4><a class="header" href="#shear" id="shear">shear</a></h4>
-<pre><code>[shear=0,0]
+<pre><code class="language-ssb-event">[shear=0,0]
 [shear-x=0]
 [shear-y=0]
 </code></pre>
 <p>Geometry shearing on plane as weight.</p>
 <h4><a class="header" href="#matrix" id="matrix">matrix</a></h4>
-<pre><code>[matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+<pre><code class="language-ssb-event">[matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
 </code></pre>
 <p>You can also directly manipulate the matrix yourself, but beware that setting this may reset/overwrite translate, scale, rotate and shear. </p>
 <h4><a class="header" href="#reset" id="reset">reset</a></h4>
-<pre><code>[reset]
+<pre><code class="language-ssb-event">[reset]
 </code></pre>
 <p>Resets transformations in source block or in other words, resets the matrix.</p>
 <h3><a class="header" href="#geometry" id="geometry">Geometry</a></h3>
 <h4><a class="header" href="#mode" id="mode">mode</a></h4>
 <p>Geometry type to draw. Every character in a line that is not within squared brackets will be interpreted and rendered as geometry according to this mode.</p>
-<pre><code>[mode=text]
+<pre><code class="language-ssb-event">[mode=text]
 </code></pre>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<pre><code>[mode=shape]
+<pre><code class="language-ssb-event">[mode=shape]
 </code></pre>
 <p>Can be one of the  following:</p>
 <pre><code>m - move (m 0 0)
@@ -453,33 +453,33 @@ b - cubic bezier (b 0 0 1 1 2 2 3 3)
 <pre><code class="language-html">m -17 4 b -17 -4 -14 -9 -10 -9 b -4 -9 0 -2 0 -2 b 0 -2 4 -9 10 -9 b 14 -9 17 -4 17 4 b 17 13 0 22 0 22 b 0 22 -17 14 -17 4
 </code></pre>
 <p><img src="assets/img/heart.png" alt="heart shape" /></p>
-<pre><code>[mode=points]
+<pre><code class="language-ssb-event">[mode=points]
 </code></pre>
 <p>0 0</p>
 <p>TODO: Better example, add picture</p>
 <h4><a class="header" href="#border" id="border">border</a></h4>
-<pre><code>[border=2]
+<pre><code class="language-ssb-event">[border=2]
 [border=2,2]
 [border-h=2]
 [border-v=2]
 </code></pre>
 <p>Border width of geometry.</p>
 <h4><a class="header" href="#join" id="join">join</a></h4>
-<pre><code>[join=round]
+<pre><code class="language-ssb-event">[join=round]
 </code></pre>
 <p>Border and line join style. Can be ‘round’, ‘bevel’ or ‘miter’.</p>
 <h4><a class="header" href="#cap" id="cap">cap</a></h4>
-<pre><code>[cap=round]
+<pre><code class="language-ssb-event">[cap=round]
 </code></pre>
 <p>Border and line cap style. Can be ‘round’, 'butt' or ‘square’.</p>
 <h3><a class="header" href="#textures" id="textures">Textures</a></h3>
 <h4><a class="header" href="#texture-1" id="texture-1">texture</a></h4>
-<pre><code>[texture=RESOURCE_ID]
+<pre><code class="language-ssb-event">[texture=RESOURCE_ID]
 </code></pre>
 <p>Texture on geometry. Texturing enabled by a valid RESOURCE_ID referencing an image. Disabled by an invalid value (like an empty value).</p>
 <p>Can be set to <strong>@</strong> to use the current frame of the video as a texture.</p>
 <h4><a class="header" href="#texfill" id="texfill">texfill</a></h4>
-<pre><code>[texfill=0,0,1,0]
+<pre><code class="language-ssb-event">[texfill=0,0,1,0]
 [texfill=0,0,1,0,pad]
 </code></pre>
 <p>Texture position, size and wrapping.</p>
@@ -493,7 +493,7 @@ b - cubic bezier (b 0 0 1 1 2 2 3 3)
 <p><strong>mirror</strong> means that the texture is repeated but flipped on the respective edge in the direction on the edge.</p>
 <h3><a class="header" href="#color" id="color">Color</a></h3>
 <h4><a class="header" href="#color-1" id="color-1">color</a></h4>
-<pre><code>[color=FFFFFF]
+<pre><code class="language-ssb-event">[color=FFFFFF]
 [color=FFFFFF,FFFFFF]
 [color=FFFFFF,FFFFFF,FFFFFF]
 [color=FFFFFF,FFFFFF,FFFFFF,FFFFFF]
@@ -506,7 +506,7 @@ b - cubic bezier (b 0 0 1 1 2 2 3 3)
 </code></pre>
 <p>Color for geometry or his border. Can be mono, left-to-right gradient, left-to-mid-to-right gradient, 4-corners gradient or 4-corners + center gradient. Color definition in hexadecimal (RGB).</p>
 <h4><a class="header" href="#alpha" id="alpha">alpha</a></h4>
-<pre><code>[alpha=FF]
+<pre><code class="language-ssb-event">[alpha=FF]
 [alpha=FF,FF]
 [alpha=FF,FF,FF,FF]
 [alpha=FF,FF,FF,FF,FF]
@@ -518,14 +518,14 @@ b - cubic bezier (b 0 0 1 1 2 2 3 3)
 <p>Transparency for geometry or his border. Can be mono, left-to-right gradient, left-to-mid-to-right gradient, 4-corners gradient or 4-corners + center gradient. Value in hexadecimal (00 = invisible, FF = opaque).</p>
 <h3><a class="header" href="#rastering" id="rastering">Rastering</a></h3>
 <h4><a class="header" href="#blur" id="blur">blur</a></h4>
-<pre><code>[blur=0]
+<pre><code class="language-ssb-event">[blur=0]
 [blur=0,0]
 [blur-h=0]
 [blur-v=0]
 </code></pre>
 <p>Gaussian blur on geometry + border. Sigma value defines strength. Horizontal and vertical blur available.</p>
 <h4><a class="header" href="#mask" id="mask">mask</a></h4>
-<pre><code>[target=mask]
+<pre><code class="language-ssb-event">[target=mask]
 [target=frame]
 [mask-mode=normal]
 [mask-mode=invert]
@@ -541,10 +541,10 @@ Beware that if you do this, nothing will show on screen as the hidden canvas wil
 inverting the logic everything is masked out.</p>
 <p>With using <strong>mask-clear</strong> you can reset the entire canvas to 0.</p>
 <p>Example:</p>
-<pre><code>[target=mask;mask-mode=invert;alpha=FF;blur=5;]CIRCLE_SMALL[target=frame;blur=0;]CIRCLE
+<pre><code class="language-ssb-event">[target=mask;mask-mode=invert;alpha=FF;blur=5;]CIRCLE_SMALL[target=frame;blur=0;]CIRCLE
 </code></pre>
 <h4><a class="header" href="#blend" id="blend">blend</a></h4>
-<pre><code>[blend=overlay]
+<pre><code class="language-ssb-event">[blend=overlay]
 </code></pre>
 <p>Blending mode. This will set how this geometry is blended with the background.</p>
 <p>Following modes are available:</p>
@@ -557,11 +557,11 @@ inverting the logic everything is masked out.</p>
 <p>screen: 1 - (1 - source color) * (1 - destination color)</p>
 <h3><a class="header" href="#animation" id="animation">Animation</a></h3>
 <h4><a class="header" href="#animate" id="animate">animate</a></h4>
-<pre><code>animate=[color=000000;translate-x=20]
-animate=t,[color=000000;translate-x=20]
-animate=0,1000,[color=000000;translate-x=20]
-animate=500,1000,[color=000000;translate-x=-20]
-animate=0,1000,sin(t*pi),[color=000000;translate-x=20]
+<pre><code class="language-ssb-event">[animate=[color=000000;translate-x=20]]
+[animate=t,[color=000000;translate-x=20]]
+[animate=0,1000,[color=000000;translate-x=20]]
+[animate=500,1000,[color=000000;translate-x=-20]]
+[animate=0,1000,sin(t*pi),[color=000000;translate-x=20]]
 </code></pre>
 <p>Interpolates style properties over time.</p>
 <p>First version goes over whole source block time to interpolate style tags.</p>
@@ -583,25 +583,25 @@ animate=0,1000,sin(t*pi),[color=000000;translate-x=20]
 <h3><a class="header" href="#karaoke" id="karaoke">Karaoke</a></h3>
 <p>The standard karaoke effect will be an interpolation from &quot;color&quot; to &quot;kcolor&quot; in the given k duration.</p>
 <h4><a class="header" href="#k" id="k">k</a></h4>
-<pre><code>[k=100]
+<pre><code class="language-ssb-event">[k=100]
 </code></pre>
 <p>Karaoke duration in milliseconds.</p>
 <h4><a class="header" href="#kset" id="kset">kset</a></h4>
-<pre><code>[kset=0]
+<pre><code class="language-ssb-event">[kset=0]
 </code></pre>
 <p>Reset karaoke time in milliseconds to start time of event.</p>
 <h4><a class="header" href="#kcolor" id="kcolor">kcolor</a></h4>
-<pre><code>[kcolor=FF00FF]
+<pre><code class="language-ssb-event">[kcolor=FF00FF]
 </code></pre>
 <p>This will create something akin to the following animation tag for each syllable:</p>
-<pre><code>[animate=kStart,kEnd,t^0.5,[color=FF00FF]]
+<pre><code class="language-ssb-event">[animate=kStart,kEnd,t^0.5,[color=FF00FF]]
 </code></pre>
 <p>Color to which the karaoke will interpolate within the given duration of the karaoke timing. For color syntax see the color tag.</p>
 <h1><a class="header" href="#6-examples" id="6-examples">6. Examples</a></h1>
 <h2><a class="header" href="#minimal" id="minimal">Minimal</a></h2>
 <p>This is an absolute minimal example.
 Only the EVENTS section is needed for an output.</p>
-<pre><code>#EVENTS
+<pre><code class="language-ssb">#EVENTS
 |1.0-5:0.0|||Boring line.|
 </code></pre>
 <h2><a class="header" href="#extended" id="extended">Extended</a></h2>
